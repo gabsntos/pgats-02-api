@@ -1,0 +1,10 @@
+const transferService = require('../service/transferService');
+
+exports.transfer = (req, res) => {
+  try {
+    const transfer = transferService.transfer(req.body);
+    res.status(201).json(transfer);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
