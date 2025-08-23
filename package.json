@@ -4,7 +4,9 @@
   "description": "Base Mocha project for testing plus function.",
   "main": "api.js",
   "scripts": {
-    "test": "mocha \"test/**/*test.js\" --timeout 10000"
+    "test": "mocha \"test/**/*test.js\" --timeout 10000",
+    "test-controller": "mocha \"test/controller/*test.js\" --timeout 10000",
+    "test-external": "mocha \"test/external/*test.js\" --timeout 10000"
   },
   "devDependencies": {
     "mocha": "^10.8.2",
