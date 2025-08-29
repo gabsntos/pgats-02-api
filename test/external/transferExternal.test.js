@@ -1,11 +1,14 @@
 const request = require('supertest')
 const { expect } = require('chai')
 
+const authSetupFile = require('../authSetup')
+
 describe('transferExternal', () => {
     describe('POST /transfer', () => {
         it('Deve retorna 400 caso sender or recipient does not exist', async () => {
             const resposta = await request('http://localhost:3000')
                 .post('/transfer')
+                .set('Authorization', `Bearer ${authSetupFile.getToken()}`)
                 .send({
                     "from": "Gabriel",
                     "to": "Wanderson",

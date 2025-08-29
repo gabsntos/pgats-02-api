@@ -75,6 +75,7 @@
     "/transfer": {
       "post": {
         "summary": "Transfer value to another user",
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "required": true,
           "content": {
@@ -93,8 +94,18 @@
         },
         "responses": {
           "201": { "description": "Transfer successful" },
-          "400": { "description": "Transfer not allowed or missing fields" }
+          "400": { "description": "Transfer not allowed or missing fields" },
+          "401": { "description": "Unauthorized - missing or invalid token" }
         }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

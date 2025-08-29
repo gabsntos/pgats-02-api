@@ -1,6 +1,7 @@
 const express = require('express');
 const userController = require('./controller/userController');
 const transferController = require('./controller/transferController');
+const authMiddleware = require('./middleware/authMiddleware');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
@@ -13,7 +14,7 @@ app.post('/login', userController.login);
 app.get('/user/:username', userController.getUser);
 
 // Transfer route
-app.post('/transfer', transferController.transfer);
+app.post('/transfer', authMiddleware, transferController.transfer);
 
 // Swagger docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

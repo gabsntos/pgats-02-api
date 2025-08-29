@@ -9,10 +9,13 @@ exports.register = (req, res) => {
   }
 };
 
+const { generateToken } = require('../service/authService');
+
 exports.login = (req, res) => {
   try {
     const user = userService.loginUser(req.body);
-    res.status(200).json(user);
+    const token = generateToken(user);
+    res.status(200).json({ user, token });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
