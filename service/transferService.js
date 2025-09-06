@@ -10,6 +10,7 @@ function transfer({ from, to, value }) {
   if (!sender || !recipient) {
     throw new Error('Sender or recipient does not exist');
   }
+  if (sender.saldo < value) throw new Error('Saldo insuficiente');
   if (!recipient.favorecido && value >= 5000) {
     throw new Error('Transfer above R$ 5.000,00 only allowed to favorecido recipients');
   }

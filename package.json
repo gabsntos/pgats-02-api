@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha \"test/**/*test.js\" --timeout 10000 --reporter mochawesome",
     "test-controller": "mocha \"test/controller/*test.js\" --timeout 10000 --reporter mochawesome",
-    "test-external": "mocha \"test/external/*test.js\" --timeout 10000 --reporter mochawesome"
+    "test-external": "mocha \"test/external/*test.js\" --timeout 10000 --reporter mochawesome",
+    "start": "node server.js",
+    "start-graphql": "node graphql/server.js"
   },
   "devDependencies": {
     "mocha": "^10.8.2",
@@ -14,8 +16,10 @@
     "nodemon": "^3.0.0"
   },
   "dependencies": {
+    "apollo-server-express": "^3.13.0",
     "chai": "^5.2.1",
     "express": "^4.18.2",
+    "graphql": "^16.11.0",
     "jsonwebtoken": "^9.0.0",
     "sinon": "^21.0.0",
     "supertest": "^7.1.4",

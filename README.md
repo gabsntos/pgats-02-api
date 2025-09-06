@@ -19,19 +19,58 @@ This project is a simple REST API built with Express for user registration, logi
 - `server.js` - Starts the server
 - `swagger.json` - Swagger API documentation
 
-## Setup
+## GraphQL API
+
+### Setup
 1. Install dependencies:
-   ```sh
-   npm install
-   ```
-2. Start the server:
-   ```sh
-   node server.js
-   ```
-3. Access Swagger docs at [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+    ```sh
+    npm install
+    ```
+2. Start the GraphQL server:
+    ```sh
+    node graphql/server.js
+    ```
+3. Access GraphQL Playground at [http://localhost:4000/graphql](http://localhost:4000/graphql)
 
-## API Endpoints
-See Swagger documentation at `/api-docs` for details.
+### Usage
+- Use the Playground to run queries and mutations:
+   - `register`: Register a new user
+   - `login`: Get JWT token for authentication
+   - `user`: Query user info
+   - `transfer`: Make a transfer (requires JWT)
 
-## Testing
-You can import `app.js` in your test files (e.g., with Supertest) to test the API without starting the server.
+#### Example Mutation for Login
+```graphql
+mutation {
+   login(username: "youruser", password: "yourpass") {
+      token
+      user {
+         username
+         favorecido
+      }
+   }
+}
+```
+
+#### Example Mutation for Transfer (with JWT)
+1. Get token from login mutation
+2. In Playground, click HTTP Headers and add:
+```json
+{
+   "Authorization": "Bearer <your_token>"
+}
+```
+3. Run transfer mutation:
+```graphql
+mutation {
+   transfer(from: "youruser", to: "recipient", value: 100.0) {
+      from
+      to
+      value
+      date
+   }
+}
+```
+
+### Testing
+You can import `graphql/app.js` in your test files (e.g., with Supertest) to test the API without starting the server.

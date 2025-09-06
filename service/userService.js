@@ -24,7 +24,10 @@ function loginUser({ username, password }) {
 }
 
 function getUser(username) {
-  return users.find(u => u.username === username);
+  if (!username) throw new Error('Missing data input');
+  const user = users.find(u => u.username === username);
+  if (!user) throw new Error('User not found')
+  return user
 }
 
 module.exports = { registerUser, loginUser, getUser };
