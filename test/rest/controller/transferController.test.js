@@ -2,11 +2,11 @@ const request = require('supertest')
 const sinon = require('sinon')
 const { expect } = require('chai')
 
-const app = require('../../app')
+const app = require('../../../app')
 
-const authSetupFile = require('../authSetup')
+const authSetupFile = require('../../authSetup')
 
-const transferService = require('../../service/transferService')
+const transferService = require('../../../service/transferService')
 
 describe('transferController', () => {
 
@@ -63,7 +63,7 @@ describe('transferController', () => {
 
             expect(resposta.status).to.equal(201)
 
-            const transferSucessResponse = require('../../fixture/responses/transferSucessResponse.json')
+            const transferSucessResponse = require('../fixture/responses/transferSucessResponse.json')
             delete resposta.body.date
             delete transferSucessResponse.date
             expect(resposta.body).to.deep.equal(transferSucessResponse) // or to.eql

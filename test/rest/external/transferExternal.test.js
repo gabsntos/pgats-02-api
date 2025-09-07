@@ -1,7 +1,7 @@
 const request = require('supertest')
 const { expect } = require('chai')
 
-const authSetupFile = require('../authSetup')
+const authSetupFile = require('../../authSetup')
 
 describe('transferExternal', () => {
     describe('POST /transfer', () => {
@@ -31,7 +31,7 @@ describe('transferExternal', () => {
 
             expect(resposta.status).to.equal(201)
 
-            const transferSucessResponse = require('../../fixture/responses/transferSucessResponse.json')
+            const transferSucessResponse = require('../../../fixture/responses/transferSucessResponse.json')
             delete resposta.body.date
             delete transferSucessResponse.date
             expect(resposta.body).to.deep.equal(transferSucessResponse) // or to.eql
