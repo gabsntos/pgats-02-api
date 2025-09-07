@@ -1,18 +1,23 @@
-// Node.js built-in module for file system operations (reading/writing files)
-const fs = require('fs');
-// Node.js built-in module for handling file and directory paths
-const path = require('path');
-// Supertest is used for making HTTP requests to our Express app in tests
-const request = require('supertest');
-// Import the Express app to send requests to it
-const app = require('../app');
+const fs = require('fs'); // Node.js built-in module for file system operations (reading/writing files)
+const path = require('path'); // Node.js built-in module for handling file and directory paths
+const request = require('supertest'); // Supertest is used for making HTTP requests to our Express app in tests
+const app = require('../app'); // Import the Express app to send requests to it
 
-// Path to the file where we'll store the authentication token
-const userFile = path.join(__dirname, '../.auth/user.json');
+const authDir = path.join(__dirname, '../.auth');
+const userFile = path.join(__dirname, '../.auth/user.json'); // Path to the file where we'll store the authentication token
+
+// Create .auth directory if it doesn't exist
+if (!fs.existsSync(authDir)) {
+  fs.mkdirSync(authDir);
+}
+
+// Create user.json if it doesn't exist
+if (!fs.existsSync(userFile)) {
+  fs.writeFileSync(userFile, '{}');
+}
 
 // Function to perform login and save the token to userFile
 async function authenticate() {
-	// Send a POST request to /login with user credentials
 	const loginResponse = await request(app)
 		.post('/login')
 		.send({
