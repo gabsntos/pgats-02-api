@@ -22,15 +22,21 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run controller tests
-      run: npm run test-controller
+    - name: Run rest-controller tests
+      run: npm run test-rest-controller
+    
+    - name: Load REST API HTTP server
+      run: npm run start-rest &
 
-    - name: Load API HTTP server
-      run: npm start &
+    - name: Load GraphQL API HTTP server
+      run: npm run start-graphql &
     
     - name: Wait API to be loaded
       run: sleep 5
 
-    - name: Run external tests
-      run: npm run test-external
+    - name: Run rest external tests
+      run: npm run test-rest-external
+
+    - name: Run graphql external tests
+      run: npm run test-graphql-external
     # this is a comment
