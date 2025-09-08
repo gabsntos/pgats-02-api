@@ -1,12 +1,13 @@
 const request = require('supertest')
 const { expect } = require('chai')
+require('dotenv').config()
 
 const authSetupFile = require('../../authSetup')
 
 describe('transferExternal', () => {
     describe('POST /transfer', () => {
         it('should return 400 BAD REQUEST when sender or recipient does not exist', async () => {
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request(process.env.REST_URL)
                 .post('/transfer')
                 .set('Authorization', `Bearer ${authSetupFile.getToken()}`)
                 .send({
@@ -20,7 +21,7 @@ describe('transferExternal', () => {
 
         it('should return 201 CREATED when user input is valid', async () => {
 
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request(process.env.REST_URL)
                 .post('/transfer')
                 .set('Authorization', `Bearer ${authSetupFile.getToken()}`)
                 .send({

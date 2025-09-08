@@ -34,6 +34,11 @@ jobs:
     - name: Wait API to be loaded
       run: sleep 5
 
+    - name: Create dotenv file
+      run: |
+        echo "REST_URL=${{ secrets.BASE_URL_REST }}" >> .env
+        echo "GRAPHQL_URL=${{ secrets.BASE_URL_GRAPHQL }}" >> .env
+
     - name: Run rest external tests
       run: npm run test-rest-external
 
