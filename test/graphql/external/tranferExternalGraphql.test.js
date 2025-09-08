@@ -1,5 +1,6 @@
 const request = require('supertest')
 const { expect, use } = require('chai')
+require('dotenv').config()
 
 const chaiExclude = require('chai-exclude');
 use(chaiExclude);
@@ -8,7 +9,7 @@ describe('transferExternalGrapghql', () => {
 
     beforeEach(async () => {
         const loginRequest = require('../fixture/requests/userLogin.json')
-        const loginResponse = await request('http://localhost:4000')
+        const loginResponse = await request(process.env.GRAPHQL_URL)
             .post('/graphql')
             .send(loginRequest)
         token = loginResponse.body.data.loginUser.token
@@ -16,7 +17,7 @@ describe('transferExternalGrapghql', () => {
 
     it('should successfully transfer between two user accounts', async () => {
         const transferRequest = require('../fixture/requests/transferMutation.json')
-        const transferResponse = await request('http://localhost:4000')
+        const transferResponse = await request(process.env.GRAPHQL_URL)
             .post('/graphql')
             .set('Authorization', `Bearer ${token}`)
             .send(transferRequest)
@@ -30,7 +31,7 @@ describe('transferExternalGrapghql', () => {
     it('insuficient balance', async () => {
         const transferRequest = require('../fixture/requests/transferMutation.json')
         transferRequest.variables.value = 10000.01
-        const transferResponse = await request('http://localhost:4000')
+        const transferResponse = await request(process.env.GRAPHQL_URL)
             .post('/graphql')
             .set('Authorization', `Bearer ${token}`)
             .send(transferRequest)
