@@ -1,0 +1,16 @@
+[
+    {
+        "testName": "Should return user not found error message",
+        "variables": {
+            "username": "notAUser"
+        },
+        "expectedErrorMessage": "User not found"
+    },
+    {
+        "testName": "Should return Missing data input error message when user not provided",
+        "variables": {
+            "username": ""
+        },
+        "expectedErrorMessage": "Missing data input"
+    }
+]
